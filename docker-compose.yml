@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  db:
+    image: mongo:7.0.6-jammy
+    container_name: bizzybot-db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - bizzybot-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bizzybot-app
+    container_name: bizzybot-app
+    env_file: .env
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    networks:
+      - bizzybot-network
+
+networks:
+  bizzybot-network:
+    driver: bridge
+
+volumes:
+  dbdata:

@@ -1,0 +1,6 @@
+.vscode
+dbdata
+dist
+node_modules
+.env
+.gitignore

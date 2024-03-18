@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  db:
+    restart: no
+
+  db_admin:
+    image: mongo-express:1.0.2-20-alpine3.19
+    container_name: bizzybot-db_admin
+    environment:
+      - ME_CONFIG_MONGODB_URL=mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOSTNAME}:${DB_PORT}/
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=admin
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=pass
+    depends_on:
+      - db
+    ports:
+      - "8000:8081"
+    networks:
+      - bizzybot-network
+
+  app:
+    restart: no
+    command: dumb-init npm run dev
