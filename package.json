@@ -1,7 +1,7 @@
 {
   "name": "bizzybot",
   "version": "0.1.0",
-  "description": "",
+  "description": "BizzyBot, a Discord assistant bot for busy business",
   "main": "index.ts",
   "scripts": {
     "build": "npx tsc",
